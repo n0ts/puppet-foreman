@@ -8,9 +8,17 @@ class foreman(
   validate_re($ensure, '^(present|absent)$')
 
   if $ensure == 'present' {
-    file { $root:
-      ensure => directory,
-      owner  => $user
+    file {
+      $root:
+        ensure => directory,
+        owner  => $user;
+      "${root}/bin/foreman":
+        ensure  => link,
+        force   => false,
+        owner   => $user,
+        replace => false,
+        target  => "${root}/foreman",
+        require => Exec['install foreman standalone'] ;
     }
 
     $curl = 'curl -s http://assets.foreman.io/foreman/foreman.tgz'
