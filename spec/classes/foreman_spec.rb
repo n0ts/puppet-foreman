@@ -15,7 +15,8 @@ describe "foreman" do
       :user    => "testuser",
     })
 
-    should contain_file("/test/boxen/env.d/foreman.sh")
+    should contain_boxen__env_script("foreman")
+    should contain_file("/test/boxen/env.d/foreman.sh").with_ensure('absent')
   end
 
   context "ensure => absent" do
@@ -33,7 +34,7 @@ describe "foreman" do
 
     it do
       should_not contain_file("/test/boxen/foreman")
-      should_not contain_file("/test/boxen/env.d/foreman.sh")
+      should_not contain_boxen__env_script("foreman")
 
       should contain_file("/usr/local/share/foreman").with({
         :ensure => "directory",

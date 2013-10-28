@@ -43,9 +43,15 @@ class foreman(
       include boxen::config
 
       file { "${boxen::config::envdir}/foreman.sh":
-        ensure => $ensure,
-        source => 'puppet:///modules/foreman/foreman.sh'
+        ensure => absent,
       }
+
+      boxen::env_script { 'foreman':
+        ensure   => $ensure,
+        priority => 'lower',
+        source   => 'puppet:///modules/foreman/foreman.sh',
+      }
+
     }
 
     default: {
