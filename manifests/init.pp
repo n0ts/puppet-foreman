@@ -17,18 +17,18 @@ class foreman(
     $curl = 'curl -s http://boxen-downloads.s3.amazonaws.com/foreman/foreman-0.63.0.github1.tgz'
     $tar  = 'tar zxv - --strip-components 1'
 
-    if $foreman_version != "0.63.0.github1" {
+    if $::foreman_version != '0.63.0.github1' {
       exec { 'install foreman standalone':
         command => "${curl} | ${tar}",
         cwd     => $root,
-        user    => $user
+        user    => $user,
       }
     }
   } else {
     exec { 'uninstall foreman standalone':
       command => "rm -rf ${root}",
       unless  => "test -d ${root}",
-      user    => $user
+      user    => $user,
     }
   }
 
