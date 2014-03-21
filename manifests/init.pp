@@ -14,14 +14,15 @@ class foreman(
         owner  => $user;
     }
 
-    $curl = 'curl -s http://assets.foreman.io/foreman/foreman.tgz'
+    $curl = 'curl -s http://boxen-downloads.s3.amazonaws.com/foreman/foreman-0.63.0.github1.tgz'
     $tar  = 'tar zxv - --strip-components 1'
 
-    exec { 'install foreman standalone':
-      command => "${curl} | ${tar}",
-      cwd     => $root,
-      creates => "${root}/bin/foreman",
-      user    => $user
+    if $foreman_version != "0.63.0.github1" {
+      exec { 'install foreman standalone':
+        command => "${curl} | ${tar}",
+        cwd     => $root,
+        user    => $user
+      }
     }
   } else {
     exec { 'uninstall foreman standalone':
