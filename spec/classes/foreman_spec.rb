@@ -11,7 +11,6 @@ describe "foreman" do
 
     should contain_exec("install foreman standalone").with({
       :cwd     => "/test/boxen/foreman",
-      :creates => "/test/boxen/foreman/bin/foreman",
       :user    => "testuser",
     })
 
@@ -43,7 +42,6 @@ describe "foreman" do
 
       should contain_exec("install foreman standalone").with({
         :cwd     => "/usr/local/share/foreman",
-        :creates => "/usr/local/share/foreman/bin/foreman",
         :user    => "root",
         })
     end
