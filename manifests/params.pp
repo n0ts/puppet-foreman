@@ -1,7 +1,7 @@
 # Internal: Default params for foreman
 class foreman::params {
   case $::osfamily {
-    Darwin: {
+    "Darwin": {
       include boxen::config
 
       $root = "${boxen::config::home}/foreman"

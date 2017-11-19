@@ -14,10 +14,10 @@ class foreman(
         owner  => $user;
     }
 
-    $curl = 'curl -s http://boxen-downloads.s3.amazonaws.com/foreman/foreman-0.63.0.github1.tgz'
+    $curl = 'curl -s https://github.com/ddollar/foreman/archive/v0.84.0.tar.gz'
     $tar  = 'tar zxv - --strip-components 1'
 
-    if $::foreman_version != '0.63.0.github1' {
+    if $::foreman_version != '0.84.0' {
       exec { 'install foreman standalone':
         command => "${curl} | ${tar}",
         cwd     => $root,
@@ -33,7 +33,7 @@ class foreman(
   }
 
   case $::osfamily {
-    Darwin: {
+    "Darwin": {
       include boxen::config
 
       file { "${boxen::config::envdir}/foreman.sh":
