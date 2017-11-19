@@ -33,7 +33,7 @@ class foreman(
   }
 
   case $::osfamily {
-    "Darwin": {
+    'Darwin': {
       include boxen::config
 
       file { "${boxen::config::envdir}/foreman.sh":
